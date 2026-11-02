@@ -1,0 +1,17 @@
+# Secrets
+.env
+
+# Virtualenv
+venv/
+.venv/
+/home/egiabot/venvs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Editor
+.vscode/
+.idea/

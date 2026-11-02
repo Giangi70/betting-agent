@@ -1,0 +1,44 @@
+# Configurazione betting-agent
+# Modifica qui endpoint, pesi per sport, budget e parametri Kelly.
+
+# Budget settimanale totale da allocare (EUR)
+budget: 100.0
+
+# Frazione di Kelly (0.25 = Kelly "quarto", prudente; 1.0 = Kelly pieno, aggressivo)
+kelly_fraction: 0.25
+
+# Stake massimo per singola scommessa come frazione del budget (cap di sicurezza)
+max_stake_fraction: 0.15
+
+# Soglia EV minima perche una scommessa sia considerata (sotto, si scarta)
+min_ev: 0.0
+
+# API key condivisa con i predictor (header X-API-Key). Vuota = auth disattivata.
+# Puo essere sovrascritta dalla variabile d'ambiente AGENT_API_KEY.
+api_key: ""
+
+# Timeout per chiamata HTTP a un predictor (secondi)
+http_timeout: 10.0
+
+# Commento in linguaggio naturale del report (gancio LLM, disattivato di default)
+llm_comment: false
+
+# I predictor da interrogare.
+#   peso: peso_sport calibrato sul ROI storico (piu alto = piu fiducia/edge storico)
+#   bonus_stagione_calda: moltiplicatore aggiunto allo score se /roi segnala stagione calda
+predictors:
+  - name: "Serie A"
+    base_url: "http://localhost:8001"
+    peso: 1.00
+  - name: "Serie B"
+    base_url: "http://localhost:8002"
+    peso: 1.10          # mercato meno efficiente -> piu edge potenziale
+  - name: "La Liga 2"
+    base_url: "http://localhost:8003"
+    peso: 1.05
+  - name: "Bundesliga 2"
+    base_url: "http://localhost:8004"
+    peso: 1.05
+
+# Bonus applicato allo score quando un predictor e in "stagione calda"
+bonus_stagione_calda: 0.5
